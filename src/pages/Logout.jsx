@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Logout = () => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // Perform logout logic here (e.g., clear user data, tokens, etc.)
+  const handleLogout = async () => {
+    setLoading(true);
+    try {
+      // Perform logout logic here (e.g., clear user data, tokens, etc.)
+      // For example: await authService.logout();
 
-    // Redirect to the login page or home page after logout
-    navigate("/login"); // Change '/login' to your desired route
+      // Redirect to the login page or home page after logout
+      navigate("/login"); // Change '/login' to your desired route
+    } catch (error) {
+      console.error("Logout error:", error);
+      // Optionally show an error message to the user
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -20,14 +30,19 @@ const Logout = () => {
           <button
             className="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-400"
             onClick={() => navigate(-1)}
+            aria-label="Cancel Logout"
           >
             Cancel
           </button>
           <button
-            className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+            className={`bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
             onClick={handleLogout}
+            disabled={loading}
+            aria-label="Log Out"
           >
-            Log Out
+            {loading ? "Logging out..." : "Log Out"}
           </button>
         </div>
       </div>

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import CheckoutModal from "./CheckoutModal";
 import CreditTransferForm from "../form/payment/CreditTransferForm";
 import BankTransferForm from "../form/payment/BankTransferForm";
 import Container from "../container/Container";
-import { FaStar } from "react-icons/fa"; // Import FaStar for displaying stars
+import { FaStar } from "react-icons/fa";
 
 const Checkout = () => {
   const location = useLocation();
@@ -13,12 +13,12 @@ const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const calculateTotal = () => {
+  const calculateTotal = useCallback(() => {
     return cart.reduce(
       (total, item) => total + item.currentAmt * item.quantity,
       0
     );
-  };
+  }, [cart]);
 
   const handleCheckout = () => {
     if (paymentMethod) {
@@ -29,16 +29,14 @@ const Checkout = () => {
   };
 
   const handlePaymentSubmit = (paymentDetails) => {
-    // Handle the payment submission process here
+    // Handle the payment submission process
     alert(`Payment successful with ${paymentMethod}`);
     console.log(paymentDetails);
     setIsModalOpen(false);
     setPaymentMethod(""); // Optionally reset payment method
   };
 
-  const handleCancel = () => {
-    navigate("/cart");
-  };
+  const handleCancel = () => navigate("/cart");
 
   return (
     <div>
@@ -47,6 +45,7 @@ const Checkout = () => {
         <button
           className="text-2xl font-semibold text-white"
           onClick={handleCancel}
+          aria-label="Go back to cart"
         >
           X
         </button>
@@ -61,7 +60,7 @@ const Checkout = () => {
           {cart.length === 0 ? (
             <p className="text-lg">Your cart is empty</p>
           ) : (
-            <div className="w-full  mb-4">
+            <div className="w-full mb-4">
               <ul className="mb-6">
                 {cart.map((item) => (
                   <li
@@ -79,7 +78,6 @@ const Checkout = () => {
                         <p className="text-sm text-gray-600">
                           #{item.currentAmt} x {item.quantity}
                         </p>
-                        {/* Display the rating */}
                         <div className="flex items-center mt-2">
                           {[...Array(5)].map((_, index) => (
                             <FaStar
@@ -110,33 +108,26 @@ const Checkout = () => {
           <div className="mb-4">
             <h4 className="text-xl font-bold mb-2">Select Payment Method:</h4>
             <div className="flex flex-col space-y-2">
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  value="Credit Card"
-                  className="mr-2"
-                  checked={paymentMethod === "Credit Card"}
-                  onChange={(e) => setPaymentMethod(e.target.value)}
-                />
-                Credit Card
-              </label>
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  value="Bank Transfer"
-                  className="mr-2"
-                  checked={paymentMethod === "Bank Transfer"}
-                  onChange={(e) => setPaymentMethod(e.target.value)}
-                />
-                Bank Transfer
-              </label>
+              {["Credit Card", "Bank Transfer"].map((method) => (
+                <label key={method} className="flex items-center">
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value={method}
+                    className="mr-2"
+                    checked={paymentMethod === method}
+                    onChange={() => setPaymentMethod(method)}
+                    aria-label={`Select ${method}`}
+                  />
+                  {method}
+                </label>
+              ))}
             </div>
           </div>
           <button
             className="py-2 px-10 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-600 mb-5"
             onClick={handleCheckout}
+            aria-label="Confirm and pay"
           >
             Confirm and Pay
           </button>

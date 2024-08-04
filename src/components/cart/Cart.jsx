@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useRecoilValue } from "recoil";
 import { cartState } from "../../atoms/cartState";
 import { useCart } from "../cart/useCart";
@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import Container from "../container/Container";
 import { IoArrowBackOutline } from "react-icons/io5";
-import { FaStar } from "react-icons/fa"; // Import FaStar for displaying stars
+import { FaStar } from "react-icons/fa";
 import { BsCart4 } from "react-icons/bs";
 
 const Cart = () => {
@@ -15,26 +15,30 @@ const Cart = () => {
   const { incrementQuantity, decrementQuantity, removeFromCart } = useCart();
   const navigate = useNavigate();
 
-  const calculateTotal = () => {
+  const calculateTotal = useCallback(() => {
     return cart.reduce(
       (total, item) => total + item.currentAmt * item.quantity,
       0
     );
-  };
+  }, [cart]);
 
-  const handleCheckout = () => {
+  const handleCheckout = useCallback(() => {
     navigate("/checkout", { state: { cart } });
-  };
+  }, [navigate, cart]);
 
-  const goBack = () => {
-    navigate(-1); // Navigate to the previous page
-  };
+  const goBack = useCallback(() => {
+    navigate(-1);
+  }, [navigate]);
 
   return (
     <div>
       <ToastContainer />
       <div className="flex my-10 bg-blue-400 rounded-t-md px-10 py-5 items-center">
-        <button className="text-white text-xl mr-4" onClick={goBack}>
+        <button
+          className="text-white text-xl mr-4"
+          onClick={goBack}
+          aria-label="Go back"
+        >
           <IoArrowBackOutline />
         </button>
         <h3 className="text-2xl text-white font-semibold">Cart</h3>
@@ -45,11 +49,9 @@ const Cart = () => {
             <div>
               <BsCart4 size={60} className="text-blue-400" />
             </div>
-            <div className="mt-5">
-              <h3 className="flex justify-center text-lg font-bold">
-                Your cart is empty.
-              </h3>
-              <p className="flex justify-center text-lg">
+            <div className="mt-5 text-center">
+              <h3 className="text-lg font-bold">Your cart is empty.</h3>
+              <p className="text-lg">
                 You have not added any item to your cart.
               </p>
             </div>
@@ -74,7 +76,6 @@ const Cart = () => {
                         #{item.currentAmt} x {item.quantity}
                       </p>
                       <div className="flex items-center mt-2">
-                        {/* Display the rating */}
                         <div className="flex items-center me-5">
                           {[...Array(5)].map((_, index) => (
                             <FaStar
@@ -90,9 +91,10 @@ const Cart = () => {
                         <button
                           className="px-2 py-1 bg-gray-200 text-gray-800 rounded hover:bg-gray-300"
                           onClick={(e) => {
-                            e.stopPropagation(); // Prevents click event from triggering the item click
+                            e.stopPropagation();
                             decrementQuantity(item.id);
                           }}
+                          aria-label={`Decrease quantity of ${item.title}`}
                         >
                           -
                         </button>
@@ -100,9 +102,10 @@ const Cart = () => {
                         <button
                           className="px-2 py-1 bg-gray-200 text-gray-800 rounded hover:bg-gray-300"
                           onClick={(e) => {
-                            e.stopPropagation(); // Prevents click event from triggering the item click
+                            e.stopPropagation();
                             incrementQuantity(item.id);
                           }}
+                          aria-label={`Increase quantity of ${item.title}`}
                         >
                           +
                         </button>
@@ -116,9 +119,10 @@ const Cart = () => {
                     <button
                       className="ml-4 px-2 py-1 text-red-500 md:text-2xl font-semibold"
                       onClick={(e) => {
-                        e.stopPropagation(); // Prevents click event from triggering the item click
+                        e.stopPropagation();
                         removeFromCart(item.id);
                       }}
+                      aria-label={`Remove ${item.title} from cart`}
                     >
                       X
                     </button>
@@ -134,6 +138,7 @@ const Cart = () => {
               <button
                 className="py-2 px-10 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-600 mb-5"
                 onClick={handleCheckout}
+                aria-label="Proceed to checkout"
               >
                 Checkout
               </button>

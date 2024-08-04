@@ -5,24 +5,19 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormData({ ...formData, [id]: value });
+    setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
   const validate = () => {
-    let newErrors = {};
+    const newErrors = {};
     if (!formData.email) newErrors.email = "Email is required";
     if (!formData.password) newErrors.password = "Password is required";
     return newErrors;
@@ -30,12 +25,12 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newErrors = validate();
-    if (Object.keys(newErrors).length === 0) {
-      // Submit the form data to your backend or API
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length === 0) {
       console.log("Form Data Submitted:", formData);
+      // Submit the form data
     } else {
-      setErrors(newErrors);
+      setErrors(validationErrors);
     }
   };
 
@@ -45,9 +40,8 @@ const Login = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 py-20">
       <div className="flex w-[80%] max-w-[1000px] bg-white shadow-xl rounded-xl overflow-hidden">
-        <div className="w-1/2 relative hidden md:flex justify-center items-center text-xl">
-          <div className="absolute inset-0 bg-gray-200"></div>{" "}
-          {/* Placeholder background */}
+        <div className="w-1/2 relative hidden md:flex justify-center items-center">
+          <div className="absolute inset-0 bg-gray-200" />
           <LazyLoadImage
             alt="Background"
             effect="blur"
@@ -61,7 +55,7 @@ const Login = () => {
           onSubmit={handleSubmit}
           className="md:w-1/2 flex flex-col justify-center items-center px-10 py-32"
         >
-          <h2 className="text-2xl font-bold mb-10 font-mono">SignIn</h2>
+          <h2 className="text-2xl font-bold mb-10 font-mono">Sign In</h2>
 
           <div className="w-full mb-4">
             <label
@@ -77,7 +71,7 @@ const Login = () => {
               value={formData.email}
               onChange={handleChange}
               className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                errors.email && "border-red-500"
+                errors.email ? "border-red-500" : ""
               }`}
             />
             {errors.email && (
@@ -99,7 +93,7 @@ const Login = () => {
               value={formData.password}
               onChange={handleChange}
               className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                errors.password && "border-red-500"
+                errors.password ? "border-red-500" : ""
               }`}
             />
             {showPassword ? (
@@ -118,26 +112,29 @@ const Login = () => {
             )}
           </div>
 
-          <div className="flex text-end justify-end w-full mb-4">
-            <p className="text-blue-500 cursor-pointer underline underline-offset-4">
-              Forgot password?
-            </p>
+          <div className="flex justify-end w-full mb-4">
+            <Link to="/forgot-password">
+              <p className="text-blue-500 cursor-pointer underline underline-offset-4">
+                Forgot password?
+              </p>
+            </Link>
           </div>
+
           <button
             type="submit"
             className="bg-blue-500 hover:bg-blue-400 text-white font-bold mt-5 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            SignIn
+            Sign In
           </button>
 
-          <Link to="/signup/buyer">
-            <p className="mt-10 text-gray-500">
-              Don't have an account yet?
+          <p className="mt-10 text-gray-500">
+            Don't have an account yet?
+            <Link to="/signup/buyer">
               <span className="text-blue-500 cursor-pointer underline underline-offset-4 ms-2">
                 Sign Up
               </span>
-            </p>
-          </Link>
+            </Link>
+          </p>
         </form>
       </div>
     </div>

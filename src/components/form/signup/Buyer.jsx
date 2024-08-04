@@ -13,39 +13,34 @@ const Buyer = () => {
   });
   const [errors, setErrors] = useState({});
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword(!showConfirmPassword);
-  };
+  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
+  const toggleConfirmPasswordVisibility = () =>
+    setShowConfirmPassword((prev) => !prev);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormData({ ...formData, [id]: value });
+    setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
   const validate = () => {
-    let newErrors = {};
+    const newErrors = {};
     if (!formData.email) newErrors.email = "Email is required";
     if (!formData.phoneNumber)
       newErrors.phoneNumber = "Phone Number is required";
     if (!formData.password) newErrors.password = "Password is required";
-    if (formData.password !== formData.confirmPassword) {
+    if (formData.password !== formData.confirmPassword)
       newErrors.confirmPassword = "Passwords do not match";
-    }
     return newErrors;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newErrors = validate();
-    if (Object.keys(newErrors).length === 0) {
-      // Submit the form data to your backend or API
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length === 0) {
       console.log("Form Data Submitted:", formData);
+      // Submit the form data
     } else {
-      setErrors(newErrors);
+      setErrors(validationErrors);
     }
   };
 
@@ -55,7 +50,7 @@ const Buyer = () => {
         onSubmit={handleSubmit}
         className="flex flex-col justify-center items-center px-5 md:px-28 w-[80%] max-w-[600px] py-10 rounded-xl bg-white shadow-xl"
       >
-        <h2 className="text-2xl font-bold mb-4 font-mono">SignUp</h2>
+        <h2 className="text-2xl font-bold mb-4 font-mono">Sign Up</h2>
 
         <div className="relative w-full mb-4">
           <input
@@ -75,8 +70,8 @@ const Buyer = () => {
 
         <div className="w-full mb-4">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="email"
+            className="block text-gray-700 text-sm font-bold mb-2"
           >
             Email
           </label>
@@ -87,7 +82,7 @@ const Buyer = () => {
             value={formData.email}
             onChange={handleChange}
             className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-              errors.email && "border-red-500"
+              errors.email ? "border-red-500" : ""
             }`}
           />
           {errors.email && (
@@ -97,8 +92,8 @@ const Buyer = () => {
 
         <div className="w-full mb-4">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="phoneNumber"
+            className="block text-gray-700 text-sm font-bold mb-2"
           >
             Phone Number
           </label>
@@ -109,7 +104,7 @@ const Buyer = () => {
             value={formData.phoneNumber}
             onChange={handleChange}
             className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-              errors.phoneNumber && "border-red-500"
+              errors.phoneNumber ? "border-red-500" : ""
             }`}
           />
           {errors.phoneNumber && (
@@ -119,19 +114,19 @@ const Buyer = () => {
 
         <div className="w-full mb-4 relative">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="password"
+            className="block text-gray-700 text-sm font-bold mb-2"
           >
             Password
           </label>
           <input
             id="password"
-            placeholder="Password"
             type={showPassword ? "text" : "password"}
+            placeholder="Password"
             value={formData.password}
             onChange={handleChange}
             className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-              errors.password && "border-red-500"
+              errors.password ? "border-red-500" : ""
             }`}
           />
           {showPassword ? (
@@ -152,19 +147,19 @@ const Buyer = () => {
 
         <div className="w-full mb-4 relative">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="confirmPassword"
+            className="block text-gray-700 text-sm font-bold mb-2"
           >
             Confirm Password
           </label>
           <input
             id="confirmPassword"
-            placeholder="Confirm Password"
             type={showConfirmPassword ? "text" : "password"}
+            placeholder="Confirm Password"
             value={formData.confirmPassword}
             onChange={handleChange}
             className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-              errors.confirmPassword && "border-red-500"
+              errors.confirmPassword ? "border-red-500" : ""
             }`}
           />
           {showConfirmPassword ? (
@@ -189,7 +184,7 @@ const Buyer = () => {
           type="submit"
           className="bg-blue-500 hover:bg-blue-400 text-white font-bold mt-5 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
-          SignUp
+          Sign Up
         </button>
       </form>
     </div>

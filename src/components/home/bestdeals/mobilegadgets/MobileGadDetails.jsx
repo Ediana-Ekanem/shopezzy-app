@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { GadgetData } from "./data";
 import { useCart } from "../../../cart/useCart";
@@ -7,7 +7,12 @@ import { FaStar } from "react-icons/fa";
 const MobileGadDetails = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
-  const item = GadgetData.find((item) => item.id === parseInt(id));
+
+  // Use useMemo to optimize the lookup of the item based on id
+  const item = useMemo(
+    () => GadgetData.find((item) => item.id === parseInt(id)),
+    [id]
+  );
 
   if (!item) {
     return <p className="text-center text-red-600 font-bold">Item not found</p>;
@@ -17,10 +22,12 @@ const MobileGadDetails = () => {
     <div className="container mx-auto px-4 py-8">
       <div className="md:flex md:space-x-8">
         <div className="w-full md:w-1/2 flex justify-center">
+          {/* Lazy load image for better performance */}
           <img
             src={item.img}
             alt={item.title}
             className="max-w-full max-h-96 object-cover rounded-lg shadow-lg"
+            loading="lazy"
           />
         </div>
 

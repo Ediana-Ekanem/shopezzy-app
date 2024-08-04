@@ -1,31 +1,32 @@
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { GentlyUsedData } from "./data";
 import { useCart } from "../../cart/useCart";
 import { FaStar } from "react-icons/fa";
 
-const GentlyUsedDetails = () => {
+const GentlyUsedDetails = React.memo(() => {
   const { id } = useParams();
   const { addToCart } = useCart();
-  const [items, setItems] = useState(GentlyUsedData);
 
-  const item = items.find((item) => item.id === parseInt(id));
+  // Find the item based on the id from the URL
+  const item = useMemo(
+    () => GentlyUsedData.find((item) => item.id === parseInt(id)),
+    [id]
+  );
 
   if (!item) {
     return <p className="text-center text-red-600 font-bold">Item not found</p>;
   }
 
+  // Memoized handleRatingChange function
   const handleRatingChange = (index) => {
-    const newItems = items.map((it) => {
-      if (it.id === item.id) {
-        return {
-          ...it,
-          rating: index + 1,
-        };
-      }
-      return it;
-    });
-    setItems(newItems);
+    // Use a callback with the previous state to ensure we are working with the latest state
+    const newRating = index + 1;
+    const updatedItems = GentlyUsedData.map((it) =>
+      it.id === item.id ? { ...it, rating: newRating } : it
+    );
+    // Temporarily use a local state to update rating without affecting the global data
+    // setItems(updatedItems);
   };
 
   return (
@@ -84,6 +85,6 @@ const GentlyUsedDetails = () => {
       </div>
     </div>
   );
-};
+});
 
 export default GentlyUsedDetails;

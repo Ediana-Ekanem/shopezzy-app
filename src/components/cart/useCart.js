@@ -7,6 +7,11 @@ export const useCart = () => {
   const [cart, setCart] = useRecoilState(cartState);
 
   const addToCart = (item) => {
+    if (!item) {
+      toast.error("Invalid item!");
+      return;
+    }
+
     setCart((oldCart) => {
       const itemIndex = oldCart.findIndex(
         (cartItem) => cartItem.id === item.id
@@ -37,16 +42,18 @@ export const useCart = () => {
           : item
       )
     );
+    toast.info("Item quantity increased!");
   };
 
   const decrementQuantity = (itemId) => {
     setCart((oldCart) =>
       oldCart.map((item) =>
         item.id === itemId
-          ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : 1 }
+          ? { ...item, quantity: Math.max((item.quantity || 1) - 1, 1) }
           : item
       )
     );
+    toast.info("Item quantity decreased!");
   };
 
   const removeFromCart = (itemId) => {

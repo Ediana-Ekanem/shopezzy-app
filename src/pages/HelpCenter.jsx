@@ -1,16 +1,16 @@
 import React from "react";
-// import HelpPage from "../components/helpcenter/HelpPage";
 
 const HelpCenter = () => {
   return (
     <div className="bg-gray-100 min-h-screen">
-      <header className="bg-white text-black  py-6 mt-5">
+      <header className="bg-white text-black py-6 mt-5">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <h1 className="text-3xl font-bold">Help Center</h1>
           <input
             type="text"
             placeholder="Search..."
             className="px-4 py-2 rounded-lg border border-gray-300"
+            aria-label="Search help articles"
           />
         </div>
       </header>
@@ -63,6 +63,8 @@ const HelpCenter = () => {
                 id="name"
                 placeholder="Your Name"
                 className="w-full px-4 py-2 rounded-lg border border-gray-300"
+                aria-required="true"
+                required
               />
             </div>
             <div className="mb-4">
@@ -77,6 +79,8 @@ const HelpCenter = () => {
                 id="email"
                 placeholder="Your Email"
                 className="w-full px-4 py-2 rounded-lg border border-gray-300"
+                aria-required="true"
+                required
               />
             </div>
             <div className="mb-4">
@@ -91,6 +95,8 @@ const HelpCenter = () => {
                 placeholder="Your Message"
                 className="w-full px-4 py-2 rounded-lg border border-gray-300"
                 rows="4"
+                aria-required="true"
+                required
               ></textarea>
             </div>
             <button

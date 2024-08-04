@@ -5,17 +5,17 @@ import Item from "../../card/Item";
 
 const RecDeals = () => {
   return (
-    <div>
+    <section>
       <Container>
-        <div className="md:flex bg-blue-400 rounded-t-md px-10 py-3">
-          <div className="text-shadow-custom hidden md:block ">
-            <h3 className="font-semibold border-b-4 text-white border-yellow-400">
+        <header className="md:flex bg-blue-400 rounded-t-md px-10 py-3">
+          <div className="hidden md:block">
+            <h3 className="font-semibold border-b-4 text-white border-yellow-400 text-shadow-custom">
               Best Choices
             </h3>
-            <h3 className="font-semibold border-b-4 text-white border-black">
+            <h3 className="font-semibold border-b-4 text-white border-black text-shadow-custom">
               Better Prices
             </h3>
-            <h3 className="font-semibold border-b-4 text-white border-blue-700">
+            <h3 className="font-semibold border-b-4 text-white border-blue-700 text-shadow-custom">
               Good Deals
             </h3>
           </div>
@@ -24,13 +24,20 @@ const RecDeals = () => {
               Recommended Deals
             </h3>
           </div>
-        </div>
+        </header>
 
         <div>
-          <Item data={RecData} itemType="rec-deals" />
+          {/* Check if RecData is not empty */}
+          {RecData && RecData.length > 0 ? (
+            <Item data={RecData} itemType="rec-deals" />
+          ) : (
+            <p className="text-center text-gray-600">
+              No deals available at the moment.
+            </p>
+          )}
         </div>
       </Container>
-    </div>
+    </section>
   );
 };
 

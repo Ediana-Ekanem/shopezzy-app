@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 const CreditCardForm = ({ onSubmit }) => {
   const [cardNumber, setCardNumber] = useState("");
@@ -6,14 +6,29 @@ const CreditCardForm = ({ onSubmit }) => {
   const [cvv, setCvv] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (cardNumber.length < 16 || cvv.length < 3) {
-      setError("Please check your card number or CVV.");
-      return;
-    }
-    onSubmit({ cardNumber, expiryDate, cvv });
-  };
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (cardNumber.length < 16 || cvv.length < 3) {
+        setError("Please check your card number or CVV.");
+        return;
+      }
+      onSubmit({ cardNumber, expiryDate, cvv });
+    },
+    [cardNumber, expiryDate, cvv, onSubmit]
+  );
+
+  const handleCardNumberChange = useCallback((e) => {
+    setCardNumber(e.target.value);
+  }, []);
+
+  const handleExpiryDateChange = useCallback((e) => {
+    setExpiryDate(e.target.value);
+  }, []);
+
+  const handleCvvChange = useCallback((e) => {
+    setCvv(e.target.value);
+  }, []);
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col items-center">
@@ -22,7 +37,7 @@ const CreditCardForm = ({ onSubmit }) => {
         <input
           type="text"
           value={cardNumber}
-          onChange={(e) => setCardNumber(e.target.value)}
+          onChange={handleCardNumberChange}
           className="border px-4 py-2 rounded-md w-full"
           required
         />
@@ -32,7 +47,7 @@ const CreditCardForm = ({ onSubmit }) => {
         <input
           type="text"
           value={expiryDate}
-          onChange={(e) => setExpiryDate(e.target.value)}
+          onChange={handleExpiryDateChange}
           className="border px-4 py-2 rounded-md w-full"
           placeholder="MM/YY"
           required
@@ -43,7 +58,7 @@ const CreditCardForm = ({ onSubmit }) => {
         <input
           type="text"
           value={cvv}
-          onChange={(e) => setCvv(e.target.value)}
+          onChange={handleCvvChange}
           className="border px-4 py-2 rounded-md w-full"
           required
         />

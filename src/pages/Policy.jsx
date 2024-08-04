@@ -3,7 +3,7 @@ import React from "react";
 const ReturnPolicy = () => {
   return (
     <div className="bg-gray-100 min-h-screen">
-      <header className="bg-white text-black  py-6 mt-5">
+      <header className="bg-white text-black py-6 mt-5">
         <div className="container mx-auto px-4 flex justify-center items-center">
           <h1 className="text-3xl font-bold">ShopEzzy Return Policy</h1>
         </div>
@@ -76,13 +76,20 @@ const ReturnPolicy = () => {
             exchange.
           </p>
           <h3 className="text-xl font-semibold mb-2">Contact Us</h3>
-          <p className="text-gray-700">
+          <p className="text-gray-700 mb-2">
             For any questions or additional support regarding our return policy,
             please reach out to our customer support team:
           </p>
           <p className="text-blue-500">
             <a href="mailto:support@shopezzy.com" className="underline">
               support@shopezzy.com
+            </a>
+          </p>
+          {/* Optionally add a phone number or a contact form link */}
+          <p className="text-gray-700 mt-2">Or call us at:</p>
+          <p className="text-blue-500">
+            <a href="tel:+1234567890" className="underline">
+              +1 (234) 567-890
             </a>
           </p>
         </section>

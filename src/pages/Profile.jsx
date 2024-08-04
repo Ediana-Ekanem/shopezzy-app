@@ -6,16 +6,42 @@ const ProfilePage = () => {
   const [profile, setProfile] = useState({
     name: "Ediana Ekanem",
     email: "ed123@gmail.com",
-    phone: "+123 456 7890",
+    phone: "070550923045",
   });
+  const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  const validateProfile = () => {
+    let valid = true;
+    const newErrors = {};
+
+    if (!profile.email.includes("@")) {
+      newErrors.email = "Please enter a valid email address.";
+      valid = false;
+    }
+
+    if (!profile.phone.match(/^\+?\d{10,15}$/)) {
+      newErrors.phone = "Please enter a valid phone number.";
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
 
   const handleEdit = () => {
     setIsEditing(true);
   };
 
   const handleSave = () => {
-    setIsEditing(false);
-    // Implement save logic here (e.g., API call)
+    if (!validateProfile()) return;
+
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      setIsEditing(false);
+      // Implement save logic here (e.g., API call)
+    }, 1000);
   };
 
   const handleChange = (e) => {
@@ -47,13 +73,18 @@ const ProfilePage = () => {
           <div className="mb-4">
             <label className="block text-gray-700">Email</label>
             {isEditing ? (
-              <input
-                type="email"
-                name="email"
-                value={profile.email}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
+              <>
+                <input
+                  type="email"
+                  name="email"
+                  value={profile.email}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                )}
+              </>
             ) : (
               <p className="text-gray-600 flex items-center">
                 <FaEnvelope className="mr-2" /> {profile.email}
@@ -63,13 +94,18 @@ const ProfilePage = () => {
           <div className="mb-4">
             <label className="block text-gray-700">Phone</label>
             {isEditing ? (
-              <input
-                type="text"
-                name="phone"
-                value={profile.phone}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
+              <>
+                <input
+                  type="text"
+                  name="phone"
+                  value={profile.phone}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                />
+                {errors.phone && (
+                  <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+                )}
+              </>
             ) : (
               <p className="text-gray-600 flex items-center">
                 <FaPhone className="mr-2" /> {profile.phone}
@@ -77,12 +113,27 @@ const ProfilePage = () => {
             )}
           </div>
           {isEditing && (
-            <button
-              onClick={handleSave}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md"
-            >
-              <FaSave className="inline mr-2" /> Save
-            </button>
+            <div className="flex justify-between items-center">
+              <button
+                onClick={handleSave}
+                className="bg-blue-500 text-white px-4 py-2 rounded-md flex items-center"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <span className="loader"></span>
+                ) : (
+                  <>
+                    <FaSave className="inline mr-2" /> Save
+                  </>
+                )}
+              </button>
+              <button
+                onClick={() => setIsEditing(false)}
+                className="bg-gray-300 text-gray-800 px-4 py-2 rounded-md"
+              >
+                Cancel
+              </button>
+            </div>
           )}
         </div>
       </div>

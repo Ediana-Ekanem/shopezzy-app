@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 const BankTransferForm = ({ onSubmit }) => {
   const [accountNumber, setAccountNumber] = useState("");
   const [bankName, setBankName] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit({ accountNumber, bankName });
-  };
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      onSubmit({ accountNumber, bankName });
+    },
+    [accountNumber, bankName, onSubmit]
+  );
+
+  const handleAccountNumberChange = useCallback((e) => {
+    setAccountNumber(e.target.value);
+  }, []);
+
+  const handleBankNameChange = useCallback((e) => {
+    setBankName(e.target.value);
+  }, []);
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col items-center">
@@ -18,7 +29,7 @@ const BankTransferForm = ({ onSubmit }) => {
         <input
           type="text"
           value={accountNumber}
-          onChange={(e) => setAccountNumber(e.target.value)}
+          onChange={handleAccountNumberChange}
           className="border px-4 py-2 rounded-md w-full"
           required
         />
@@ -28,7 +39,7 @@ const BankTransferForm = ({ onSubmit }) => {
         <input
           type="text"
           value={bankName}
-          onChange={(e) => setBankName(e.target.value)}
+          onChange={handleBankNameChange}
           className="border px-4 py-2 rounded-md w-full"
           required
         />

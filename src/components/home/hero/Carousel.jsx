@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { RxDotFilled } from "react-icons/rx";
 
 const Carousel = () => {
@@ -22,19 +22,17 @@ const Carousel = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const nextSlide = () => {
-    const isLastSlide = currentIndex === slides.length - 1;
-    const newIndex = isLastSlide ? 0 : currentIndex + 1;
-    setCurrentIndex(newIndex);
-  };
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === slides.length - 1 ? 0 : prevIndex + 1
+    );
+  }, [slides.length]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000); // Change slide every 5 seconds
+    const interval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
 
     return () => clearInterval(interval); // Cleanup interval on component unmount
-  }, [currentIndex]);
+  }, [nextSlide]);
 
   return (
     <div className="w-full h-[300px] md:h-[430px] relative group">
@@ -44,7 +42,7 @@ const Carousel = () => {
       ></div>
       {/* Dots */}
       <div className="absolute bottom-6 w-full flex justify-center">
-        {slides.map((slide, slideIndex) => (
+        {slides.map((_, slideIndex) => (
           <div key={slideIndex} className="mx-2">
             <RxDotFilled
               className={`cursor-pointer ${
