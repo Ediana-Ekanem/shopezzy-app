@@ -10,7 +10,7 @@ const Item = ({ data, itemType }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 my-10">
+    <div className="flex flex-wrap justify-center gap-6 my-10">
       {data.map((item) => (
         <div
           key={item.id}
@@ -18,7 +18,7 @@ const Item = ({ data, itemType }) => {
         >
           <Link
             to={`/${itemType}/${item.id}`}
-            className="flex justify-center items-center w-full h-52 overflow-hidden my-2 py-2"
+            className="flex justify-center items-center w-full h-52 overflow-hidden mt-3 py-2"
           >
             <img
               src={item.img}
