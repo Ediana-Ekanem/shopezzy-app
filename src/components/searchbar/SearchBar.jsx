@@ -24,7 +24,7 @@ const SearchBar = ({ onSearch }) => {
 
   return (
     <form
-      className="flex items-center justify-center rounded-2xl border border-white bg-transparent"
+      className="flex items-center justify-center rounded-lg border border-white bg-transparent"
       onSubmit={handleFormSubmit}
     >
       <div className="relative w-[450px] flex items-center">
@@ -33,7 +33,7 @@ const SearchBar = ({ onSearch }) => {
           type="text"
           value={searchValue}
           onChange={handleFilter}
-          className="w-full pl-8 pr-10 py-[10px] rounded-2xl text-white bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-normal placeholder:text-sm placeholder:text-white"
+          className="w-full pl-8 pr-10 py-[7px] rounded-lg text-white bg-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-normal placeholder:text-sm placeholder:text-white"
           placeholder="Search..."
         />
         {searchValue && (

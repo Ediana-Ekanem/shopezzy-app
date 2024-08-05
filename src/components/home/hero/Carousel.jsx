@@ -35,7 +35,7 @@ const Carousel = () => {
   }, [nextSlide]);
 
   return (
-    <div className="w-full h-[300px] md:h-[430px] relative group">
+    <div className="w-full h-[200px] md:h-[430px] relative group">
       <div
         style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
         className="w-full h-full rounded-lg bg-center bg-cover bg-no-repeat duration-500"

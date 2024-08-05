@@ -29,7 +29,7 @@ const Navbar = () => {
   // bg-slate-700 text-white
 
   return (
-    <div className="bg-[#FEAB3A] text-white shadow-2xl  py-0 md:py-6 font-Montserrat sticky z-50 top-0 w-full">
+    <div className="bg-[#FEAB3A] text-white shadow-2xl py-2 md:py-4 font-Montserrat sticky z-50 top-0 w-full">
       <nav className="text-shadow-xl font-bold ">
         <Container>
           <Desktop

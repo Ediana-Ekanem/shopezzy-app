@@ -41,12 +41,12 @@ const Banner = React.memo(() => {
   return (
     <div className="bg-slate-100">
       <Container>
-        <div className="flex justify-between items-center py-5">
-          <div className="flex flex-col items-center space-y-4">
+        <div className="flex justify-between items-center py-3">
+          <div className="flex flex-col items-center">
             <Link to="/postAd">
               <button className="flex flex-col items-center">
                 <BiSolidMessageSquareAdd className="text-blue-500 text-2xl md:text-6xl rounded-lg border-4 border-blue-500 p-0 grid place-items-center" />
-                <p className="text-md text-blue-600 mt-1 font-Montserrat">
+                <p className="text-sm md:text-md text-blue-600 mt-1 font-Montserrat">
                   Post Ads
                 </p>
               </button>
@@ -54,8 +54,8 @@ const Banner = React.memo(() => {
 
             <Link to="/postItems">
               <button className="flex flex-col items-center">
-                <FaPlusCircle className="text-green-600 text-2xl md:text-6xl rounded-full border-4 border-green-600 p-1 grid place-items-center" />
-                <p className="text-md text-green-600 mt-1 font-Montserrat">
+                <FaPlusCircle className="text-green-600 text-3xl md:text-6xl rounded-full border-4 border-green-600 p-1 grid place-items-center" />
+                <p className="text-sm md:text-md text-green-600 mt-1 font-Montserrat">
                   Post Items
                 </p>
               </button>

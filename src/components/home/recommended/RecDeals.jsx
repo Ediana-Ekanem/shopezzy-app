@@ -7,20 +7,20 @@ const RecDeals = () => {
   return (
     <section>
       <Container>
-        <header className="md:flex bg-blue-400 rounded-t-md px-10 py-3">
-          <div className="hidden md:block">
-            <h3 className="font-semibold border-b-4 text-white border-yellow-400 text-shadow-custom">
+        <header className="md:flex bg-blue-400 rounded-t-md px-10 py-5">
+          {/* <div className="hidden md:block space-y-0">
+            <h3 className="font-semibold border-b-2 text-white border-yellow-400 text-shadow-custom">
               Best Choices
             </h3>
-            <h3 className="font-semibold border-b-4 text-white border-black text-shadow-custom">
+            <h3 className="font-semibold border-b-2 text-white border-black text-shadow-custom">
               Better Prices
             </h3>
-            <h3 className="font-semibold border-b-4 text-white border-blue-700 text-shadow-custom">
+            <h3 className="font-semibold border-b-2 text-white border-blue-700 text-shadow-custom">
               Good Deals
             </h3>
-          </div>
+          </div> */}
           <div className="flex justify-center items-center md:ml-20">
-            <h3 className="text-white md:text-3xl font-Roboto font-semibold text-shadow-custom">
+            <h3 className="text-white md:text-2xl font-Roboto font-semibold text-shadow-custom">
               Recommended Deals
             </h3>
           </div>

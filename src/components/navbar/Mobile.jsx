@@ -25,19 +25,19 @@ const Mobile = ({
 
   return (
     <div className="md:hidden">
-      <div className="flex justify-between items-center py-2">
-        <div className="w-32">
+      <div className="flex justify-between items-center py-3">
+        <div className="w-28">
           <Link to="/">
             <img src={logo} alt="logo" />
           </Link>
         </div>
         <div onClick={handleClick}>
-          {nav ? <FaTimes size={29} /> : <FaBars size={29} />}
+          {nav ? <FaTimes size={25} /> : <FaBars size={23} />}
         </div>
       </div>
 
       {nav && (
-        <div className="flex flex-col items-center bg-[#FEAB3A] text-white text-lg space-y-5 mt-2">
+        <div className="flex flex-col items-center bg-[#FEAB3A] text-white text-lg space-y-3 mt-2">
           <div className="w-full flex justify-center py-2">
             <Container>
               <SearchComponent />
