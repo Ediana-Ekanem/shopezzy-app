@@ -41,11 +41,11 @@ const Banner = React.memo(() => {
   return (
     <div className="bg-slate-100">
       <Container>
-        <div className="flex justify-between items-center py-3">
-          <div className="flex flex-col items-center">
+        <div className="flex md:justify-between justify-center items-center py-3">
+          <div className="flex md:flex-col space-x-10 md:space-x-0  md:space-y-2 items-center">
             <Link to="/postAd">
               <button className="flex flex-col items-center">
-                <BiSolidMessageSquareAdd className="text-blue-500 text-2xl md:text-6xl rounded-lg border-4 border-blue-500 p-0 grid place-items-center" />
+                <BiSolidMessageSquareAdd className="text-blue-500 text-4xl md:text-6xl rounded-lg border-4 border-blue-500 p-0 grid place-items-center" />
                 <p className="text-sm md:text-md text-blue-600 mt-1 font-Montserrat">
                   Post Ads
                 </p>
@@ -54,7 +54,7 @@ const Banner = React.memo(() => {
 
             <Link to="/postItems">
               <button className="flex flex-col items-center">
-                <FaPlusCircle className="text-green-600 text-3xl md:text-6xl rounded-full border-4 border-green-600 p-1 grid place-items-center" />
+                <FaPlusCircle className="text-green-600 text-4xl md:text-6xl rounded-full border-4 border-green-600 p-1 grid place-items-center" />
                 <p className="text-sm md:text-md text-green-600 mt-1 font-Montserrat">
                   Post Items
                 </p>
@@ -62,7 +62,7 @@ const Banner = React.memo(() => {
             </Link>
           </div>
           {icons.map(({ src, alt, text }, index) => (
-            <div key={index} className="flex flex-col items-center">
+            <div key={index} className="hidden md:flex flex-col items-center">
               <div className="w-8 md:w-20">
                 <img src={src} alt={alt} className="w-full h-full" />
               </div>

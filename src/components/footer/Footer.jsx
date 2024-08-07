@@ -60,7 +60,7 @@ const Footer = () => {
   return (
     <div className="text-white bg-gradient-to-b from-gray-800 to-gray-900 py-10 font-Montserrat">
       <Container>
-        <div className="container mx-auto flex flex-wrap justify-between px-6">
+        <div className="container mx-auto md:flex flex-wrap justify-between px-6">
           <div className="mb-6">
             <h2 className="text-3xl font-bold mb-2">
               <div className="w-32">
