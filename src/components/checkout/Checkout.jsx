@@ -40,7 +40,7 @@ const Checkout = () => {
 
   return (
     <div>
-      <div className="md:flex justify-between my-10 bg-blue-400 rounded-t-md px-10 py-5">
+      <div className="flex justify-between my-10 bg-blue-400 rounded-t-md px-10 py-5">
         <h3 className="text-2xl text-white font-semibold">Checkout</h3>
         <button
           className="text-2xl font-semibold text-white"
@@ -92,7 +92,7 @@ const Checkout = () => {
                         </div>
                       </div>
                     </div>
-                    <p className="text-lg font-semibold">
+                    <p className="md:text-lg font-semibold">
                       #{item.currentAmt * item.quantity}
                     </p>
                   </li>
@@ -100,7 +100,9 @@ const Checkout = () => {
               </ul>
               <div className="flex justify-between items-center p-4 bg-white shadow rounded-lg mb-4">
                 <h4 className="text-xl font-bold">Total:</h4>
-                <p className="text-2xl font-semibold">#{calculateTotal()}</p>
+                <p className="text-lg md:text-2xl font-semibold">
+                  #{calculateTotal()}
+                </p>
               </div>
             </div>
           )}

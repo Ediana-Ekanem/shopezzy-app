@@ -3,6 +3,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import Container from "../../container/Container";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -51,6 +52,7 @@ const Login = () => {
             height="100%"
           />
         </div>
+
         <form
           onSubmit={handleSubmit}
           className="md:w-1/2 flex flex-col justify-center items-center px-10 py-32"

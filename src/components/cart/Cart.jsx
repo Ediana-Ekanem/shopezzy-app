@@ -112,12 +112,12 @@ const Cart = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center">
+                  <div className="flex items-center mb-5 md:mb-0">
                     <p className="md:text-lg font-semibold">
                       #{item.currentAmt * item.quantity}
                     </p>
                     <button
-                      className="ml-4 px-2 py-1 text-red-500 md:text-2xl font-semibold"
+                      className="md:ml-4 px-2 py-1 text-red-500 md:text-2xl font-semibold"
                       onClick={(e) => {
                         e.stopPropagation();
                         removeFromCart(item.id);
@@ -132,7 +132,9 @@ const Cart = () => {
             </ul>
             <div className="flex justify-between items-center p-4 bg-white shadow rounded-lg mb-4">
               <h4 className="text-xl font-bold">Total:</h4>
-              <p className="text-2xl font-semibold">#{calculateTotal()}</p>
+              <p className="text-lg md:text-2xl font-semibold">
+                #{calculateTotal()}
+              </p>
             </div>
             <div className="flex justify-center">
               <button
