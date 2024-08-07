@@ -52,15 +52,13 @@ const Buyer = () => {
       >
         <h2 className="text-2xl font-bold mb-4 font-mono">Sign Up</h2>
 
-        <div className="relative w-full mb-4">
-          <input
-            id="googleSignup"
-            type="text"
-            placeholder="Sign up with Google"
-            className="shadow appearance-none border rounded w-full ps-10 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-          <FcGoogle size={18} className="absolute top-1/3 left-2" />
-        </div>
+        <button
+          type="button"
+          className="flex items-center space-x-2 mb-4 px-4 py-2 border rounded shadow-md bg-white hover:bg-gray-100 transition duration-300"
+        >
+          <FcGoogle size={18} />
+          <span>Sign up with Google</span>
+        </button>
 
         <div className="flex items-center w-full my-4">
           <div className="border-t border-gray-300 flex-grow"></div>

@@ -47,7 +47,7 @@ const Cart = () => {
         {cart.length === 0 ? (
           <div className="flex flex-col items-center my-3">
             <div>
-              <BsCart4 size={60} className="text-blue-400" />
+              <BsCart4 size={40} md:size={60} className="text-blue-400" />
             </div>
             <div className="mt-5 text-center">
               <h3 className="text-lg font-bold">Your cart is empty.</h3>
